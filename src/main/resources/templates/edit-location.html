@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="ISO-8859-1">
+<title>Edit location</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="home.css" th:href="@{home.css}">
+<link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+ <header>
+      <div class="container">
+         <div class="row">
+            <!--logo-->
+            <a href="#" class="logo"><img src='../img/logo.png' alt="logo"/></a>
+            <!--menu-->
+            <nav>
+               <ul class="main-menu">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="#">News</a></li>
+                  <li><a href="#">Library</a></li>
+                  <li><a href="/analysis-center">Analysis Center</a></li>
+               </ul>
+            </nav>
+            <!--login/out-->
+            <div class="info">
+               <a href="/login" class="login">[login]</a>
+               <a href="/logout" class="logout">[logout]</a>
+            </div>
+         </div> 
+      </div>
+   </header>
+   <content class="container2">
+	<h1>Edit information</h1>
+	<form action="#"
+		th:action="@{/edit-location/{location_id}(location_id=${location.location_id})}"
+		th:object="${location}" method="post">
+		<label for="location_id" >Location ID</label> <br>
+		<input type="text" th:field="*{location_id}" id="location_id" name="location_id" 
+			placeholder="location_id" disabled> <br>
+		<label for="locationName" >Location name</label> <br> 
+		<input type="text"  th:field="*{locationName}" id="locationName"  name="locationName"
+			placeholder="locationName"> <br> 
+
+		<button type="submit">Save</button>
+	</form>
+	</content>
+	
+</body>
+</html>

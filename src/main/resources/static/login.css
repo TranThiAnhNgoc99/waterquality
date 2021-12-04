@@ -1,0 +1,135 @@
+@font-face{
+	src : url('fonts/Muli-SemiBold.ttf');
+	font-family: Muli;
+}
+
+@font-face{
+	src : url('fonts/Roboto-Regular.ttf');
+	font-family: Roboto;
+}
+
+body{
+	width: 100%;
+	height: 100vh;
+	background-color: #8acdd6;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.login{
+	padding: 20px 20px 36px 20px;
+	background-color: #dff3f6;
+	width: 30%;
+	max-width: 540px;
+	height: 500px;
+	border-radius: 4px;
+	border-style: solid;
+  	border-width: 0.5px;
+	text-align: center;
+}
+
+.signin-heading{
+	font-family: Muli;
+	font-size: 28px;
+	color: #0172d2;
+	text-align: center;
+}
+
+.exit-icon{
+	width: 20px;
+  	height: 20px;
+  	color: #d3dce6;
+	text-decoration: none;
+}
+
+.add-icon-exit{
+	position: relative;
+}
+
+.add-icon-exit a{
+	position: absolute;
+  	right: 0;
+  	top: 20%;
+  	padding: 9px 8px;
+}
+
+.login-label{
+	width: 100%;
+	font-family: Roboto;
+  	font-size: 17px;
+	color: #b8c1cb;
+	margin-bottom: 8px;
+	display: inline-block;
+	text-align: left;
+}
+
+.login-input{
+	display: block;
+	width: 95%;
+	max-width: 580px;
+	height: 56px;
+	border-radius: 4px;
+	border: solid 1px #d3dce6;
+	font-family: Roboto;
+  	font-size: 18px;
+  	padding: 6px 0 6px 20px;
+	color: #475362;
+}
+
+.add-icon{
+	position: relative;
+	width: 100%;
+	max-width: 580px;
+  	height: 84px;
+  	margin: 50px 0 20px 0;
+}
+
+.add-icon i{
+	position: absolute;
+  	right: 5%;
+  	top: 65%;
+  	font-size : 24px;
+}
+
+.username-icon{
+  	color: #13cb65;
+}
+
+.password-icon{
+	color: #009dff;
+}
+
+.login-error-message{
+	width: 100%;
+	max-width: 580px;
+	font-family: Roboto;
+  	font-size: 20px;
+  	margin-top: 60px;
+  	color: red;
+  	text-align: center;
+}
+
+button{
+	width: 100%;
+	max-width: 540px;
+  	font-family: Roboto;
+  	font-size: 20px;
+  	font-weight: 500;
+  	padding: 18px 0;
+  	border-radius: 100px;
+  	border-width: 0;
+	color: #ffffff;
+}
+
+.login-button{
+	margin: 20px 0 20px;
+	background-color: #0078e8;
+}
+
+.forgot-password{
+	font-family: Roboto;
+  	font-size: 18px;
+  	color: #778f9b;
+  	text-decoration: none;
+}

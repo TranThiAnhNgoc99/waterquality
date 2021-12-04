@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="home.css" th:href="@{home.css}">
+<link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	 <header>
+      <div class="container">
+         <div class="row">
+            <!--logo-->
+            <a href="/" class="logo"><img src='../img/logo.png' alt="logo"/></a>
+            <!--menu-->
+            <nav>
+               <ul class="main-menu">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="#">News</a></li>
+                  <li><a href="#">Library</a></li>
+                  <li><a href="/analysis-center">Analysis Center</a></li>
+               </ul>
+            </nav>
+            <!--login/out-->
+            <div class="info">
+               <a href="/login" class="login">[login]</a>
+               <a href="/logout" class="logout">[logout]</a>
+            </div>
+         </div> 
+      </div>
+   </header>
+
+	<content class="container2">
+		<div class="row">
+	         <div style="width: 100%; margin-top: 20px;">
+				<div >
+					<a href="/add-admin-form" class="add-admin">Thêm Admin</a>
+					<div>
+	         			<table border="1" style="width: 100%;">
+				            <tr style = "height: 50px;">
+				            	<th>UserID</th>
+				               <th>Username</th>
+				               <th>Action</th>
+				            </tr>
+				            <tr th:each ="user : ${users}" style = "height: 50px;">
+				            	<td th:utext="${user.user_id}">...</td>
+				               <td th:utext="${user.username}">...</td>
+				               <td>
+				                  <a th:href="@{edit-admin-form/{user_id}(user_id=${user.user_id})}">Edit</a> |
+				                  <a  th:href="@{delete-admin/{user_id}(user_id=${user.user_id})}">Del</a></td>
+				            </tr>
+				         </table>
+	      			</div>
+				</div>
+			</div>
+			<div style="margin-left: 50px; width: 100%; margin-top: 20px;">
+				<div >
+					<a href="/add-location-form" class="add-location">Thêm vị trí</a>
+					<div>
+			         <table border="1" style="width: 100%;">
+			            <tr style = "height: 50px;">
+			               <th>STT</th>
+			               <th>Location</th>
+			               <th>Action</th>
+			            </tr>
+			            <tr th:each ="location : ${locations}" style = "height: 50px;">
+			               <td th:utext="${location.location_id}">...</td>
+			               <td th:utext="${location.locationName}">...</td>
+			               <td>
+			                  <a th:href="@{edit-location-form/{location_id}(location_id=${location.location_id})}">Edit</a> |
+			                  <a  th:href="@{delete-location/{location_id}(location_id=${location.location_id})}">Del</a></td>
+			            </tr>
+			         </table>
+			      </div>
+				</div>
+			</div>
+		</div>
+	 </content>
+</body>
+</html>

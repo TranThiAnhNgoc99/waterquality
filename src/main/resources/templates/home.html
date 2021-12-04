@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="home.css" th:href="@{home.css}">
+<link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+<body>
+   <header>
+      <div class="container">
+         <div class="row">
+            <!--logo-->
+            <a href="#" class="logo"><img src='../img/logo.png' alt="logo"/></a>
+            <!--menu-->
+            <nav>
+               <ul class="main-menu">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="#">News</a></li>
+                  <li><a href="#">Library</a></li>
+                  <li><a href="/analysis-center">Analysis Center</a></li>
+               </ul>
+            </nav>
+            <!--login/out-->
+            <div class="info">
+               <a href="/login" class="login">[login]</a>
+               <a href="/logout" class="logout">[logout]</a>
+            </div>
+         </div> 
+      </div>
+   </header>
+
+   <content class="container2">
+      <div class="row">
+         <div class="left">
+            <div class="chose-locate">Chọn điểm đo</div>
+            <form th:action="@{/}">
+            <select class="selection" id="selection" name="location_id" >
+               <option th:each="location : ${listLocations}"
+                            th:value="${location.location_id}"
+                            th:utext="${location.locationName}"
+                            th:selected=${location.location_id==1}>
+                            </option>
+            </select>
+            </form>
+            <div>
+               <p>Chỉ số chất lượng nước ngày: </p>
+               <p id="wqi_time" th:text="${time}"> </p>
+            </div>
+         </div>
+         <div class="right">
+            <div class="right1"  id="wqi_color" th:style="'background:'+ ${wqiColor} + ';'">
+               <div class="row">
+               <div class="right-WQI">
+                  <p>WQI</p>
+                  <p id="wqi" th:text="${wqi}"></p>
+               </div>
+               <div class="right-status">
+                  <p id="wqi_status" th:text="${wqiStatus}"></p>
+               </div>
+            </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="left">
+            <div class="chose-locate">Các tiêu chí quan trắc</div>
+            <div id="chart_div" style="margin-top:20px;"></div>
+            <div id="chart_div2" style="margin-top:20px;"></div>
+            <div id="chart_div3" style="margin-top:20px;"></div>
+            <div id="chart_div4" style="margin-top:20px;"></div>
+            <div id="chart_div5" style="margin-top:20px;"></div>
+            <div id="chart_div6" style="margin-top:20px;"></div>
+            <div id="chart_div7" style="margin-top:20px;"></div>
+            <div id="chart_div8" style="margin-top:20px;"></div>
+            <div id="chart_div9" style="margin-top:20px;"></div>
+            <div id="chart_div10" style="margin-top:20px;"></div>
+         </div>
+         <div class="right">
+            <p class="chose-locate">Bảng quy đổi giá trị WQI</p>
+            <div class="table">
+               <table border="1">
+                  <tr>
+                     <th style="width: 20%;">Giá trị WQI</th>
+                     <th style="width: 60%;">Mức đánh giá chất lượng nước</th>
+                     <th style="width: 20%;">Màu sắc</th>
+                  </tr>
+                  <tr>
+                     <td>91 - 100</td>
+                     <td>Sử dụng tốt cho mục đích cấp nước sinh hoạt</td>
+                     <td style=" background: #00BFFF;">Tốt</td>
+                  </tr>
+                  <tr>
+                     <td>76 - 90</td>
+                     <td>Sử dụng cho mục đích cấp nước sinh hoạt nhưng cần các biện pháp xử lý phù hợp</td>
+                     <td style=" background: #00FF7F;">Trung bình</td>
+                  </tr>
+                  <tr>
+                     <td>51 - 75</td>
+                     <td>Sử dụng cho mục đích tưới tiêu và các mục đích tương đương khác</td>
+                     <td style=" background: #EEEE00;">Kém</td>
+                  </tr>
+                  <tr>
+                     <td>26 - 50</td>
+                     <td>Sử dụng cho giao thông thủy và các mục đích tương đương khác</td>
+                     <td style=" background: #FF8C00;">Tệ</td>
+                  </tr>
+                  <tr>
+                     <td>0 - 25</td>
+                     <td>Nước ô nhiễm nặng, cần các biện pháp xử lý trong tương lai</td>
+                     <td style=" background: #EE0000;">Ô nhiễm</td>
+                  </tr>
+               </table>
+            </div>
+            <p class="note">Theo SỔ TAY HƯỚNG DẪN TÍNH TOÁN CHỈ SỐ CHẤT LƯỢNG NƯỚC (Ban hành kèm theo Quyết định số 879 /QĐ-TCMT ngày 01 tháng 7 năm 2011 của Tổng cục trưởng Tổng cục Môi trường)</p>
+         </div>
+      </div>
+   </content>
+  <footer></footer>
+  <script th:inline="javascript">
+  var real_data = [[${pHSub}]];
+  var data2 	= [[${t0Sub}]];
+  var data3 	= [[${DOSub}]];
+  var data4 	= [[${BOD5Sub}]];
+  var data5 	= [[${CODSub}]];
+  var data6 	= [[${NNH4Sub}]];
+  var data7 	= [[${PPO4Sub}]];
+  var data8 	= [[${TSSSub}]];
+  var data9 	= [[${DucSub}]];
+  var data10 	= [[${ColiformSub}]];
+	$(document).ready(function(){
+		google.charts.load('current', {
+            packages : [ 'corechart', 'bar' ]
+        });
+        google.charts.setOnLoadCallback(drawpHChart);
+        google.charts.setOnLoadCallback(draw2Chart);
+        google.charts.setOnLoadCallback(draw3Chart);
+        google.charts.setOnLoadCallback(draw4Chart);
+        google.charts.setOnLoadCallback(draw5Chart);
+        google.charts.setOnLoadCallback(draw6Chart);
+        google.charts.setOnLoadCallback(draw7Chart);
+        google.charts.setOnLoadCallback(draw8Chart);
+        google.charts.setOnLoadCallback(draw9Chart);
+        google.charts.setOnLoadCallback(draw10Chart);
+			$('select').change(function(){
+				var locationId = $( "select option:selected" ).val()+"";
+		        $.ajax({
+		        	url: '/api/quality/'+ locationId,
+		            type: 'get',
+		            data:  {location_id : locationId},
+		        	success: function(value){
+		        		  var WQI = value.WQI;
+		        		  var wqi = '<p id="wqi" th:text="${wqi}">'+ WQI +'</p>';
+		        		  $('#wqi').replaceWith(wqi);
+		        		  var time = value.time;
+		        		  var wqi_time = '<p id="wqi_time" th:text="${time}">' + time + ' </p>';
+		        		  $('#wqi_time').replaceWith(wqi_time);
+		        		  var color = value.color;
+		        		  $('#wqi_color').css("background", color);
+		        		  var status = value.status;
+		        		  var wqi_status = '<p id="wqi_status" th:text="${wqiStatus}">' + status + '</p>';
+		        		  $('#wqi_status').replaceWith(wqi_status);
+		        		  var subtance = value.listSubstances;
+		        			   real_data = subtance[0];
+			        		   data2 	= subtance[1];
+			        		   data3 	= subtance[2];
+			        		   data4 	= subtance[3];
+			        		   data5 	= subtance[4];
+			        		   data6 	= subtance[5];
+			        		   data7 	= subtance[6];
+			        		   data8 	= subtance[7];
+			        		   data9 	= subtance[8];
+			        		   data10 	= subtance[9];
+			        		  google.charts.setOnLoadCallback(drawpHChart);
+			        	        google.charts.setOnLoadCallback(draw2Chart);
+			        	        google.charts.setOnLoadCallback(draw3Chart);
+			        	        google.charts.setOnLoadCallback(draw4Chart);
+			        	        google.charts.setOnLoadCallback(draw5Chart);
+			        	        google.charts.setOnLoadCallback(draw6Chart);
+			        	        google.charts.setOnLoadCallback(draw7Chart);
+			        	        google.charts.setOnLoadCallback(draw8Chart);
+			        	        google.charts.setOnLoadCallback(draw9Chart);
+			        	        google.charts.setOnLoadCallback(draw10Chart);
+		        	}
+		        });
+		    });
+		});
+	function drawpHChart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [real_data.time[0], real_data.dataList[0]],
+            [real_data.time[1], real_data.dataList[1]],
+            [real_data.time[2], real_data.dataList[2]],
+            [real_data.time[3], real_data.dataList[3]],
+            [real_data.time[4], real_data.dataList[4]],
+            [real_data.time[5], real_data.dataList[5]],
+            [real_data.time[6], real_data.dataList[6]],
+            [real_data.time[7], real_data.dataList[7]],
+            [real_data.time[8], real_data.dataList[8]],
+            [real_data.time[9], real_data.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'pH' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw2Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data2.time[0], data2.dataList[0]],
+            [data2.time[1], data2.dataList[1]],
+            [data2.time[2], data2.dataList[2]],
+            [data2.time[3], data2.dataList[3]],
+            [data2.time[4], data2.dataList[4]],
+            [data2.time[5], data2.dataList[5]],
+            [data2.time[6], data2.dataList[6]],
+            [data2.time[7], data2.dataList[7]],
+            [data2.time[8], data2.dataList[8]],
+            [data2.time[9], data2.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'Nhiet do' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div2'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw3Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data3.time[0], data3.dataList[0]],
+            [data3.time[1], data3.dataList[1]],
+            [data3.time[2], data3.dataList[2]],
+            [data3.time[3], data3.dataList[3]],
+            [data3.time[4], data3.dataList[4]],
+            [data3.time[5], data3.dataList[5]],
+            [data3.time[6], data3.dataList[6]],
+            [data3.time[7], data3.dataList[7]],
+            [data3.time[8], data3.dataList[8]],
+            [data3.time[9], data3.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'DO' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div3'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw4Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data4.time[0], data4.dataList[0]],
+            [data4.time[1], data4.dataList[1]],
+            [data4.time[2], data4.dataList[2]],
+            [data4.time[3], data4.dataList[3]],
+            [data4.time[4], data4.dataList[4]],
+            [data4.time[5], data4.dataList[5]],
+            [data4.time[6], data4.dataList[6]],
+            [data4.time[7], data4.dataList[7]],
+            [data4.time[8], data4.dataList[8]],
+            [data4.time[9], data4.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'BOD5' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div4'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw5Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data5.time[0], data5.dataList[0]],
+            [data5.time[1], data5.dataList[1]],
+            [data5.time[2], data5.dataList[2]],
+            [data5.time[3], data5.dataList[3]],
+            [data5.time[4], data5.dataList[4]],
+            [data5.time[5], data5.dataList[5]],
+            [data5.time[6], data5.dataList[6]],
+            [data5.time[7], data5.dataList[7]],
+            [data5.time[8], data5.dataList[8]],
+            [data5.time[9], data5.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'COD' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div5'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw6Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data6.time[0], data6.dataList[0]],
+            [data6.time[1], data6.dataList[1]],
+            [data6.time[2], data6.dataList[2]],
+            [data6.time[3], data6.dataList[3]],
+            [data6.time[4], data6.dataList[4]],
+            [data6.time[5], data6.dataList[5]],
+            [data6.time[6], data6.dataList[6]],
+            [data6.time[7], data6.dataList[7]],
+            [data6.time[8], data6.dataList[8]],
+            [data6.time[9], data6.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'N-NH4' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div6'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw7Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data7.time[0], data7.dataList[0]],
+            [data7.time[1], data7.dataList[1]],
+            [data7.time[2], data7.dataList[2]],
+            [data7.time[3], data7.dataList[3]],
+            [data7.time[4], data7.dataList[4]],
+            [data7.time[5], data7.dataList[5]],
+            [data7.time[6], data7.dataList[6]],
+            [data7.time[7], data7.dataList[7]],
+            [data7.time[8], data7.dataList[8]],
+            [data7.time[9], data7.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'P-PO4' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div7'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw8Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data8.time[0], data8.dataList[0]],
+            [data8.time[1], data8.dataList[1]],
+            [data8.time[2], data8.dataList[2]],
+            [data8.time[3], data8.dataList[3]],
+            [data8.time[4], data8.dataList[4]],
+            [data8.time[5], data8.dataList[5]],
+            [data8.time[6], data8.dataList[6]],
+            [data8.time[7], data8.dataList[7]],
+            [data8.time[8], data8.dataList[8]],
+            [data8.time[9], data8.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'TSS' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div8'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw9Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data9.time[0], data9.dataList[0]],
+            [data9.time[1], data9.dataList[1]],
+            [data9.time[2], data9.dataList[2]],
+            [data9.time[3], data9.dataList[3]],
+            [data9.time[4], data9.dataList[4]],
+            [data9.time[5], data9.dataList[5]],
+            [data9.time[6], data9.dataList[6]],
+            [data9.time[7], data9.dataList[7]],
+            [data9.time[8], data9.dataList[8]],
+            [data9.time[9], data9.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'Do Duc' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div9'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	function draw10Chart() {
+        var data = new google.visualization.arrayToDataTable([
+            ['Time', 'Data'],
+            [data10.time[0], data10.dataList[0]],
+            [data10.time[1], data10.dataList[1]],
+            [data10.time[2], data10.dataList[2]],
+            [data10.time[3], data10.dataList[3]],
+            [data10.time[4], data10.dataList[4]],
+            [data10.time[5], data10.dataList[5]],
+            [data10.time[6], data10.dataList[6]],
+            [data10.time[7], data10.dataList[7]],
+            [data10.time[8], data10.dataList[8]],
+            [data10.time[9], data10.dataList[9]]
+          ]);
+        var options = {
+                legend: { position: 'none' },
+                chart: {
+                  title: 'Coliform' },
+              };
+              var chart = new google.charts.Bar(document.getElementById('chart_div10'));
+              // Convert the Classic options to Material options.
+              chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+	</script>
+</body>
+</html>

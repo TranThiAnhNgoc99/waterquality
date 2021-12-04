@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="ISO-8859-1">
+<title>Edit User</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="home.css" th:href="@{home.css}">
+<link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+ <header>
+      <div class="container">
+         <div class="row">
+            <!--logo-->
+            <a href="#" class="logo"><img src='../img/logo.png' alt="logo"/></a>
+            <!--menu-->
+            <nav>
+               <ul class="main-menu">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="#">News</a></li>
+                  <li><a href="#">Library</a></li>
+                  <li><a href="/analysis-center">Analysis Center</a></li>
+               </ul>
+            </nav>
+            <!--login/out-->
+            <div class="info">
+               <a href="/login" class="login">[login]</a>
+               <a href="/logout" class="logout">[logout]</a>
+            </div>
+         </div> 
+      </div>
+   </header>
+   <content class="container2">
+	<h1>Edit information</h1>
+	<form action="#"
+		th:action="@{/edit-admin/{user_id}(user_id=${user.user_id})}"
+		th:object="${user}" method="post">
+		<label for="user_id" >ID</label> <br>
+		<input type="text" th:field="*{user_id}" id="user_id" name="user_id" 
+			placeholder="user_id" disabled> <br>
+		<label for="username" >Username</label> <br> 
+		<input type="text"  th:field="*{username}" id="username"  name="username"
+			placeholder="Username"> <br> 
+		<label for="password" >Password</label> <br> 
+		<input type="password" th:field="*{password}" id="password"  name="password"
+			placeholder="Password"> <br> 
+
+		<button type="submit">Save</button>
+	</form>
+	</content>
+	
+</body>
+</html>

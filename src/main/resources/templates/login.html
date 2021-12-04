@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="login.css" th:href="@{login.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="login">
+		<div class="add-icon-exit">
+			<span class="signin-heading">Sign In </span> 
+			<a href="/" class="fa fa-times exit-icon"></a>
+		</div>
+		<br>
+		<form action="/checklogin" method="POST">
+			<div class="add-icon">
+				<label for="username" class="login-label">Login</label> 
+				<input type="text" id="username" class="login-input" name="username"
+					placeholder="Username"> 
+				<i class="fa fa-check-circle username-icon"></i>
+			</div>
+			<div class="add-icon">
+				<label for="password" class="login-label">Password</label> 
+				<input type="password" id="password" class="login-input" name="password"
+					placeholder="Password">
+				<i class="fa fa-lock password-icon"></i>
+			</div>
+			<p class="login-error-message" th:text="${param.error}"></p>
+			<button type="submit" class="login-button">
+				<span>Login</span>
+			</button>
+		</form>
+	</div>
+</body>
+</html>

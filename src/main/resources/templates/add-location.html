@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="ISO-8859-1">
+<title>Add Location</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="home.css" th:href="@{home.css}">
+<link rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+ <header>
+      <div class="container">
+         <div class="row">
+            <!--logo-->
+            <a href="#" class="logo"><img src='../img/logo.png' alt="logo"/></a>
+            <!--menu-->
+            <nav>
+               <ul class="main-menu">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="#">News</a></li>
+                  <li><a href="#">Library</a></li>
+                  <li><a href="/analysis-center">Analysis Center</a></li>
+               </ul>
+            </nav>
+            <!--login/out-->
+            <div class="info">
+               <a href="/login" class="login">[login]</a>
+               <a href="/logout" class="logout">[logout]</a>
+            </div>
+         </div> 
+      </div>
+   </header>
+   <content class="container2">
+	<h1>Add Location</h1>
+	<form action="/add-location" method="POST">
+
+		<label for="locationName" class="add-location">Location</label> 
+		<br> 
+		<input type="text" id="locationName" class="add-location-input" name="locationName" placeholder="Location">
+		<span th:text="${alreadyRegisteredMessage}"></span>
+		<span th:text="${LOCATIONNAMENULL}"></span>
+		<button type="submit" >Save</button>
+
+	</form>
+	</content>
+	
+</body>
+</html>
